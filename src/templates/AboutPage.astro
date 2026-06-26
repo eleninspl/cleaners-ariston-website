@@ -36,12 +36,15 @@ const base = lang === 'en' ? '/en' : '';
         <p class="section-body">{t('about.story.body1')}</p>
         <p class="section-body story-body-2">{t('about.story.body2')}</p>
       </div>
-      <div class="story-image-placeholder" aria-hidden="true">
-        <div class="story-year-overlay">
-          <span>Est.</span>
-          <strong>1968</strong>
-        </div>
-      </div>
+      <img
+        src="/images/vibe-2.png"
+        alt="Λεπτομέρεια από τον πάγκο του καταστήματος Center Cleaners Ariston"
+        class="story-image"
+        width="600"
+        height="750"
+        loading="lazy"
+        decoding="async"
+      />
     </div>
   </section>
 
@@ -103,33 +106,12 @@ const base = lang === 'en' ? '/en' : '';
   align-items: center;
 }
 .story-body-2 { margin-top: var(--space-4); }
-.story-image-placeholder {
-  position: relative;
+.story-image {
+  width: 100%;
   aspect-ratio: 4/5;
-  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-warm) 100%);
+  object-fit: cover;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(201,169,110,0.15);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-}
-.story-year-overlay {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  color: var(--color-gold);
-  opacity: 0.25;
-}
-.story-year-overlay span {
-  font-size: var(--text-sm);
-  letter-spacing: 0.2em;
-  text-transform: uppercase;
-}
-.story-year-overlay strong {
-  font-family: var(--font-heading);
-  font-size: 5rem;
-  font-weight: 700;
-  line-height: 1;
+  display: block;
 }
 
 .values-grid {

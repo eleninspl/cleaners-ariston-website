@@ -18,6 +18,8 @@ const base = lang === 'en' ? '/en' : '';
 
   <!-- ── Hero ─────────────────────────────────────────── -->
   <section class="hero">
+    <!-- TODO: replace with real photo — landscape, shop exterior or Mykonos atmosphere -->
+    <!-- <img src="/images/hero.jpg" alt="" class="hero-bg-photo" aria-hidden="true" /> -->
     <div class="hero-bg-overlay"></div>
     <div class="container hero-content">
       <p class="section-label">{t('hero.label')}</p>
@@ -68,7 +70,15 @@ const base = lang === 'en' ? '/en' : '';
   <section class="section about-section marble">
     <div class="container about-grid">
       <div class="about-image-wrap">
-        <div class="about-image-placeholder" aria-hidden="true"></div>
+        <img
+          src="/images/vibe.png"
+          alt="Εσωτερικό του Center Cleaners Ariston — πάγκος υποδοχής με καθαρά ρούχα"
+          class="about-image"
+          width="600"
+          height="750"
+          loading="lazy"
+          decoding="async"
+        />
       </div>
       <div class="about-text">
         <div class="gold-rule"></div>
@@ -255,11 +265,12 @@ const base = lang === 'en' ? '/en' : '';
   gap: var(--space-16);
   align-items: center;
 }
-.about-image-placeholder {
+.about-image {
+  width: 100%;
   aspect-ratio: 4/5;
-  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-warm) 100%);
+  object-fit: cover;
   border-radius: var(--radius-md);
-  border: 1px solid rgba(201,169,110,0.15);
+  display: block;
 }
 .about-body-2 { margin-top: var(--space-4); margin-bottom: var(--space-8); }
 
