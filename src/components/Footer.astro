@@ -1,0 +1,155 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { COMPANY } from '../constants';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const year = new Date().getFullYear();
+const base = lang === 'en' ? '/en' : '';
+---
+
+<footer class="footer section--dark">
+  <div class="container footer-grid">
+    <div class="footer-brand">
+      <p class="footer-logo-name">Center Cleaners</p>
+      <p class="footer-logo-sub">Ariston · Est. 1968</p>
+      <p class="footer-desc">{t('footer.desc')}</p>
+      <a
+        href={COMPANY.instagram.url}
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="Instagram"
+        class="footer-social-link"
+      >
+        Instagram
+      </a>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-heading">{t('footer.services')}</p>
+      <ul class="footer-links" role="list">
+        <li><a href={`${base}/services#dry-cleaning`}>{t('svc.dry.title')}</a></li>
+        <li><a href={`${base}/services#laundry`}>{t('svc.laundry.title')}</a></li>
+        <li><a href={`${base}/services#home-textiles`}>{t('svc.home.title')}</a></li>
+        <li><a href={`${base}/services#hotel`}>{t('svc.hotel.title')}</a></li>
+      </ul>
+    </div>
+
+    <div class="footer-col">
+      <p class="footer-heading">{t('footer.visit')}</p>
+      <address class="footer-address">
+        <p>{COMPANY.location.display}</p>
+        <p>{COMPANY.location.country}</p>
+        <p><a href={COMPANY.phone.href}>{COMPANY.phone.display}</a></p>
+      </address>
+      <p class="footer-heading footer-heading--mt">{t('footer.hours')}</p>
+      <p class="footer-hours">{t('footer.hours.weekday')}</p>
+      <p class="footer-hours">{t('footer.hours.sunday')}</p>
+    </div>
+  </div>
+
+  <div class="footer-bottom container">
+    <p>© {year} Center Cleaners Ariston. {t('footer.rights')}</p>
+  </div>
+</footer>
+
+<style>
+.footer {
+  padding-top: var(--space-20);
+  padding-bottom: 0;
+}
+
+.footer-grid {
+  display: grid;
+  grid-template-columns: 2fr 1fr 1fr;
+  gap: var(--space-12);
+  padding-bottom: var(--space-16);
+  border-bottom: 1px solid rgba(201,169,110,0.2);
+}
+
+.footer-logo-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-2xl);
+  color: var(--color-gold);
+  font-weight: 700;
+}
+.footer-logo-sub {
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-text-muted);
+  margin-bottom: var(--space-4);
+}
+.footer-desc {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.8;
+  max-width: 30ch;
+  margin-bottom: var(--space-6);
+}
+
+.footer-social-link {
+  font-size: var(--text-xs);
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  border-bottom: 1px solid rgba(201,169,110,0.3);
+  padding-bottom: 2px;
+  transition: color var(--transition-fast);
+}
+.footer-social-link:hover { color: var(--color-gold-light); }
+
+.footer-heading {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-4);
+}
+.footer-heading--mt { margin-top: var(--space-8); }
+
+.footer-links {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+.footer-links a {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  transition: color var(--transition-fast);
+}
+.footer-links a:hover { color: var(--color-cream); }
+
+.footer-address {
+  font-style: normal;
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 2;
+}
+.footer-address a { transition: color var(--transition-fast); }
+.footer-address a:hover { color: var(--color-gold); }
+
+.footer-hours {
+  font-size: var(--text-sm);
+  color: var(--color-text-secondary);
+  line-height: 1.9;
+}
+
+.footer-bottom {
+  padding-block: var(--space-6);
+  font-size: var(--text-xs);
+  color: var(--color-text-faint);
+  letter-spacing: 0.04em;
+}
+
+@media (max-width: 768px) {
+  .footer-grid { grid-template-columns: 1fr 1fr; }
+  .footer-brand { grid-column: 1 / -1; }
+}
+@media (max-width: 640px) {
+  .footer-grid { grid-template-columns: 1fr; }
+}
+</style>

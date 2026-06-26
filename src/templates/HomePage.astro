@@ -1,0 +1,387 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations, type Lang, type TranslationKey } from '../i18n/ui';
+import { COMPANY } from '../constants';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const base = lang === 'en' ? '/en' : '';
+---
+
+<BaseLayout
+  title={t('meta.home.title')}
+  description={t('meta.home.desc')}
+  lang={lang}
+  canonicalPath={lang === 'en' ? '/en/' : '/'}
+>
+
+  <!-- ── Hero ─────────────────────────────────────────── -->
+  <section class="hero">
+    <div class="hero-bg-overlay"></div>
+    <div class="container hero-content">
+      <p class="section-label">{t('hero.label')}</p>
+      <h1 class="hero-title">
+        {t('hero.title')}<br />
+        <em>{t('hero.title.em')}</em>
+        {t('hero.title.end') && <Fragment> {t('hero.title.end')}</Fragment>}
+      </h1>
+      <p class="hero-body">{t('hero.body')}</p>
+      <div class="hero-actions">
+        <a href={`${base}/contact`} class="btn btn--gold">{t('hero.cta.primary')}</a>
+        <a href={`${base}/services`} class="btn btn--outline">{t('hero.cta.secondary')}</a>
+      </div>
+    </div>
+    <div class="hero-badge" aria-hidden="true">
+      <span class="hero-badge-line">Finest Dry Cleaning</span>
+      <span class="hero-badge-year">1968</span>
+      <span class="hero-badge-line">Laundry Garment Care</span>
+    </div>
+  </section>
+
+  <!-- ── Trust bar ─────────────────────────────────────── -->
+  <section class="trust-bar section--dark">
+    <div class="container trust-bar-grid">
+      <div class="trust-item">
+        <p class="trust-number">{t('trust.years.num')}</p>
+        <p class="trust-label">{t('trust.years.label')}</p>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <p class="trust-number">{t('trust.locations.num')}</p>
+        <p class="trust-label">{t('trust.locations.label')}</p>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <p class="trust-number">{t('trust.who.num')}</p>
+        <p class="trust-label">{t('trust.who.label')}</p>
+      </div>
+      <div class="trust-divider"></div>
+      <div class="trust-item">
+        <p class="trust-number">{t('trust.quality.num')}</p>
+        <p class="trust-label">{t('trust.quality.label')}</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── About ─────────────────────────────────────────── -->
+  <section class="section about-section marble">
+    <div class="container about-grid">
+      <div class="about-image-wrap">
+        <div class="about-image-placeholder" aria-hidden="true"></div>
+      </div>
+      <div class="about-text">
+        <div class="gold-rule"></div>
+        <p class="section-label">{t('about.label')}</p>
+        <h2 class="section-title">
+          {t('about.title').split('\n').map((line, i) => (
+            <Fragment>{i > 0 && <br />}{line}</Fragment>
+          ))}
+        </h2>
+        <p class="section-body">{t('about.body1')}</p>
+        <p class="section-body about-body-2">{t('about.body2')}</p>
+        <a href={`${base}/about`} class="btn btn--gold about-cta">{t('about.cta')}</a>
+      </div>
+    </div>
+  </section>
+
+  <!-- ── Services ──────────────────────────────────────── -->
+  <section class="section section--cream section--centered">
+    <div class="container--narrow">
+      <div class="gold-rule"></div>
+      <p class="section-label">{t('services.label')}</p>
+      <h2 class="section-title">
+        {t('services.title').split('\n').map((line, i) => (
+          <Fragment>{i > 0 && <br />}{line}</Fragment>
+        ))}
+      </h2>
+    </div>
+    <div class="container services-grid">
+      {[1,2,3,4].map(n => (
+        <a href={`${base}/services`} class="service-card">
+          <div class="service-icon" aria-hidden="true">✦</div>
+          <h3 class="service-card-title">{t(`service.${n}.title`  as TranslationKey)}</h3>
+          <p class="service-card-body">{t(`service.${n}.body`  as TranslationKey)}</p>
+        </a>
+      ))}
+    </div>
+    <div class="services-cta">
+      <a href={`${base}/services`} class="btn btn--gold">{t('services.cta')}</a>
+    </div>
+  </section>
+
+  <!-- ── Reviews ───────────────────────────────────────── -->
+  <section class="section section--dark section--centered">
+    <div class="container--narrow">
+      <div class="gold-rule"></div>
+      <p class="section-label">{t('reviews.label')}</p>
+      <h2 class="section-title">{t('reviews.title')}</h2>
+      <div class="reviews-meta">
+        <span class="reviews-score">{t('reviews.rating')}</span>
+        <span class="reviews-stars" aria-label="4.9 out of 5 stars">★★★★★</span>
+        <span class="reviews-count">{t('reviews.count')}</span>
+      </div>
+    </div>
+    <div class="container reviews-grid">
+      {[1,2,3].map(n => (
+        <blockquote class="review-card">
+          <p class="review-text">{t(`review.${n}.text`  as TranslationKey)}</p>
+          <footer class="review-author">
+            <span class="review-name">{t(`review.${n}.author`  as TranslationKey)}</span>
+            <span class="review-stars" aria-label="5 stars">★★★★★</span>
+          </footer>
+        </blockquote>
+      ))}
+    </div>
+  </section>
+
+  <!-- ── CTA ───────────────────────────────────────────── -->
+  <section class="section section--centered marble">
+    <div class="container--narrow">
+      <div class="gold-rule"></div>
+      <h2 class="section-title">{t('cta.title')}</h2>
+      <p class="section-body cta-body">{t('cta.body')}</p>
+      <div class="cta-actions">
+        <a href={`${base}/contact`} class="btn btn--gold">{t('cta.primary')}</a>
+        <a href={COMPANY.phone.href} class="btn btn--outline">{t('cta.secondary')}</a>
+      </div>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+/* Hero */
+.hero {
+  position: relative;
+  min-height: calc(100vh - var(--nav-height));
+  display: flex;
+  align-items: center;
+  background-color: var(--color-dark);
+  overflow: hidden;
+}
+.hero-bg-overlay {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 70% 50%, rgba(201,169,110,0.06) 0%, transparent 60%),
+    radial-gradient(ellipse at 20% 80%, rgba(201,169,110,0.04) 0%, transparent 50%);
+}
+.hero-content {
+  position: relative;
+  z-index: 1;
+  max-width: 680px;
+}
+.hero-title {
+  font-family: var(--font-heading);
+  font-size: clamp(var(--text-4xl), 6vw, 4.5rem);
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--color-cream);
+  margin-bottom: var(--space-6);
+}
+.hero-title em {
+  font-style: italic;
+  color: var(--color-gold);
+}
+.hero-body {
+  font-size: var(--text-lg);
+  color: var(--color-text-secondary);
+  max-width: 48ch;
+  margin-bottom: var(--space-10);
+}
+.hero-actions {
+  display: flex;
+  gap: var(--space-4);
+  flex-wrap: wrap;
+}
+.hero-badge {
+  position: absolute;
+  right: var(--space-16);
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--space-2);
+  opacity: 0.18;
+  pointer-events: none;
+}
+.hero-badge-year {
+  font-family: var(--font-heading);
+  font-size: 5rem;
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+}
+.hero-badge-line {
+  font-size: var(--text-xs);
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+}
+
+/* Trust bar */
+.trust-bar { padding-block: var(--space-12); }
+.trust-bar-grid {
+  display: grid;
+  grid-template-columns: 1fr auto 1fr auto 1fr auto 1fr;
+  align-items: center;
+}
+.trust-item { text-align: center; padding-inline: var(--space-4); }
+.trust-number {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  color: var(--color-gold);
+  margin-bottom: var(--space-1);
+}
+.trust-label {
+  font-size: var(--text-xs);
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a7166;
+}
+.trust-divider {
+  width: 1px;
+  height: 40px;
+  background-color: rgba(201,169,110,0.2);
+}
+
+/* About */
+.about-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: center;
+}
+.about-image-placeholder {
+  aspect-ratio: 4/5;
+  background: linear-gradient(135deg, var(--color-dark) 0%, var(--color-dark-warm) 100%);
+  border-radius: var(--radius-md);
+  border: 1px solid rgba(201,169,110,0.15);
+}
+.about-body-2 { margin-top: var(--space-4); margin-bottom: var(--space-8); }
+
+/* Services */
+.services-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+.service-card {
+  display: block;
+  padding: var(--space-8);
+  background-color: var(--color-white);
+  border: 1px solid rgba(0,0,0,0.08);
+  border-radius: var(--radius-md);
+  transition: all var(--transition-base);
+}
+.service-card:hover {
+  border-color: var(--color-gold);
+  transform: translateY(-4px);
+  box-shadow: 0 12px 32px rgba(0,0,0,0.08);
+}
+.service-icon {
+  font-size: var(--text-xl);
+  color: var(--color-gold);
+  margin-bottom: var(--space-4);
+}
+.service-card-title {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 600;
+  margin-bottom: var(--space-3);
+  color: var(--color-text-dark);
+}
+.service-card-body {
+  font-size: var(--text-sm);
+  color: var(--color-text-muted);
+  line-height: 1.7;
+}
+.services-cta { text-align: center; margin-top: var(--space-12); }
+
+/* Reviews */
+.reviews-meta {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-3);
+  margin-top: var(--space-4);
+}
+.reviews-score {
+  font-family: var(--font-heading);
+  font-size: var(--text-3xl);
+  font-weight: 700;
+  color: var(--color-gold);
+  line-height: 1;
+}
+.reviews-stars {
+  color: var(--color-gold);
+  font-size: var(--text-xl);
+  letter-spacing: 2px;
+}
+.reviews-count {
+  font-size: var(--text-sm);
+  color: #7a7166;
+  letter-spacing: 0.06em;
+}
+
+.reviews-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--space-6);
+  margin-top: var(--space-12);
+}
+.review-card {
+  background-color: rgba(255,255,255,0.04);
+  border: 1px solid rgba(201,169,110,0.15);
+  border-radius: var(--radius-md);
+  padding: var(--space-8);
+  text-align: left;
+}
+.review-text {
+  font-family: var(--font-heading);
+  font-style: italic;
+  font-size: var(--text-lg);
+  color: var(--color-cream);
+  line-height: 1.6;
+  margin-bottom: var(--space-6);
+}
+.review-author {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.review-name  { font-size: var(--text-sm); font-weight: 500; color: var(--color-gold); }
+.review-stars { color: var(--color-gold); font-size: var(--text-sm); letter-spacing: 2px; }
+
+/* CTA */
+.cta-body { margin-inline: auto; margin-bottom: var(--space-10); }
+.cta-actions {
+  display: flex;
+  gap: var(--space-4);
+  justify-content: center;
+  flex-wrap: wrap;
+}
+
+/* Responsive */
+@media (max-width: 900px) {
+  .about-grid       { grid-template-columns: 1fr; }
+  .about-image-wrap { display: none; }
+  .services-grid    { grid-template-columns: repeat(2, 1fr); }
+  .reviews-grid     { grid-template-columns: 1fr; }
+  .trust-bar-grid   { grid-template-columns: 1fr 1fr; gap: var(--space-8); }
+  .trust-divider    { display: none; }
+}
+@media (max-width: 768px) {
+  .hero-badge { display: none; }
+}
+@media (max-width: 640px) {
+  .hero { min-height: 90svh; }
+  .services-grid { grid-template-columns: 1fr; }
+  .hero-actions  { flex-direction: column; }
+  .cta-actions   { flex-direction: column; align-items: center; }
+}
+</style>

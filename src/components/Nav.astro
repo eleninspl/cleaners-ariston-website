@@ -1,0 +1,189 @@
+---
+import { useTranslations, type Lang } from '../i18n/ui';
+import { COMPANY } from '../constants';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+
+const navLinks = [
+  { href: lang === 'en' ? '/en/' : '/',         label: t('nav.home') },
+  { href: lang === 'en' ? '/en/services' : '/services', label: t('nav.services') },
+  { href: lang === 'en' ? '/en/about'    : '/about',    label: t('nav.about') },
+  { href: lang === 'en' ? '/en/contact'  : '/contact',  label: t('nav.contact') },
+];
+
+const currentPath = Astro.url.pathname;
+
+// Compute the same page in the other language
+const altUrl = lang === 'el'
+  ? `/en${currentPath === '/' ? '' : currentPath}`
+  : currentPath.replace(/^\/en/, '') || '/';
+---
+
+<header class="nav-header">
+  <nav class="nav container" aria-label="Main navigation">
+    <a href={lang === 'en' ? '/en/' : '/'} class="nav-logo" aria-label="Center Cleaners Ariston">
+      <span class="nav-logo-name">Center Cleaners</span>
+      <span class="nav-logo-sub">Ariston · Est. 1968</span>
+    </a>
+
+    <button class="nav-toggle" aria-label="Toggle menu" aria-expanded="false" aria-controls="nav-menu">
+      <span></span><span></span><span></span>
+    </button>
+
+    <ul class="nav-links" id="nav-menu" role="list">
+      {navLinks.map(({ href, label }) => (
+        <li>
+          <a
+            href={href}
+            class={`nav-link${currentPath === href || (href !== '/' && href !== '/en/' && currentPath.startsWith(href)) ? ' nav-link--active' : ''}`}
+          >
+            {label}
+          </a>
+        </li>
+      ))}
+      <li>
+        <a href={COMPANY.phone.href} class="btn btn--outline nav-cta">
+          {t('nav.call')}
+        </a>
+      </li>
+      <li>
+        <a href={altUrl} class="nav-lang" aria-label="Switch language">
+          {t('nav.lang')}
+        </a>
+      </li>
+    </ul>
+  </nav>
+</header>
+
+<script>
+  const toggle = document.querySelector('.nav-toggle') as HTMLButtonElement;
+  const menu   = document.querySelector('.nav-links') as HTMLUListElement;
+  toggle?.addEventListener('click', () => {
+    const open = menu.classList.toggle('nav-links--open');
+    toggle.setAttribute('aria-expanded', String(open));
+  });
+</script>
+
+<style>
+.nav-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background-color: var(--color-dark);
+  border-bottom: 1px solid rgba(201,169,110,0.2);
+  height: var(--nav-height);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  height: 100%;
+}
+
+.nav-logo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+  line-height: 1;
+}
+.nav-logo-name {
+  font-family: var(--font-heading);
+  font-size: var(--text-xl);
+  font-weight: 700;
+  color: var(--color-gold);
+  letter-spacing: 0.02em;
+}
+.nav-logo-sub {
+  font-size: var(--text-xs);
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: #7a7166;
+}
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: var(--space-8);
+}
+
+.nav-link {
+  font-size: var(--text-sm);
+  font-weight: 500;
+  letter-spacing: 0.06em;
+  text-transform: uppercase;
+  color: #a89e92;
+  transition: color var(--transition-fast);
+}
+.nav-link:hover,
+.nav-link--active { color: var(--color-gold); }
+
+.nav-cta {
+  padding: var(--space-2) var(--space-6);
+  font-size: var(--text-xs);
+}
+
+.nav-lang {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: #7a7166;
+  border: 1px solid rgba(201,169,110,0.25);
+  padding: var(--space-1) var(--space-3);
+  border-radius: var(--radius-sm);
+  transition: all var(--transition-fast);
+}
+.nav-lang:hover {
+  color: var(--color-gold);
+  border-color: var(--color-gold);
+}
+
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  gap: 5px;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: var(--space-2);
+}
+.nav-toggle span {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background-color: var(--color-gold);
+  transition: all var(--transition-fast);
+}
+
+@media (max-width: 768px) {
+  .nav-toggle { display: flex; }
+
+  .nav-links {
+    display: none;
+    position: absolute;
+    top: var(--nav-height);
+    left: 0;
+    right: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background-color: var(--color-dark);
+    border-top: 1px solid rgba(201,169,110,0.15);
+    padding: var(--space-4) var(--space-8) var(--space-8);
+  }
+  .nav-links--open { display: flex; }
+
+  .nav-links li { width: 100%; }
+  .nav-link {
+    display: block;
+    padding-block: var(--space-4);
+    font-size: var(--text-base);
+    border-bottom: 1px solid rgba(255,255,255,0.06);
+  }
+  .nav-cta { margin-top: var(--space-4); }
+  .nav-lang { margin-top: var(--space-3); }
+}
+</style>

@@ -1,0 +1,112 @@
+---
+import BaseLayout from '../layouts/BaseLayout.astro';
+import { useTranslations, type Lang, type TranslationKey } from '../i18n/ui';
+
+interface Props { lang: Lang; }
+const { lang } = Astro.props;
+const t = useTranslations(lang);
+const base = lang === 'en' ? '/en' : '';
+
+const services = [
+  { idKey: 'svc.dry.id', titleKey: 'svc.dry.title', descKey: 'svc.dry.desc', itemsKey: 'svc.dry.items' },
+  { idKey: 'svc.laundry.id', titleKey: 'svc.laundry.title', descKey: 'svc.laundry.desc', itemsKey: 'svc.laundry.items' },
+  { idKey: 'svc.home.id', titleKey: 'svc.home.title', descKey: 'svc.home.desc', itemsKey: 'svc.home.items' },
+  { idKey: 'svc.hotel.id', titleKey: 'svc.hotel.title', descKey: 'svc.hotel.desc', itemsKey: 'svc.hotel.items' },
+] as const;
+---
+
+<BaseLayout
+  title={t('meta.services.title')}
+  description={t('meta.services.desc')}
+  lang={lang}
+  canonicalPath={lang === 'en' ? '/en/services' : '/services'}
+>
+
+  <section class="page-hero section--dark section--centered">
+    <div class="container--narrow">
+      <div class="gold-rule"></div>
+      <p class="section-label">{t('services.page.label')}</p>
+      <h1 class="section-title">{t('services.page.title')}</h1>
+      <p class="section-body page-hero-body">{t('services.page.subtitle')}</p>
+    </div>
+  </section>
+
+  {services.map(({ idKey, titleKey, descKey, itemsKey }, i) => {
+    const items = t(itemsKey as TranslationKey).split(',');
+    return (
+      <section
+        id={t(idKey as TranslationKey)}
+        class={`section service-detail ${i % 2 === 1 ? 'section--cream' : ''}`}
+      >
+        <div class="container service-detail-grid">
+          <div class="service-detail-text">
+            <div class="gold-rule"></div>
+            <p class="section-label">0{i + 1}</p>
+            <h2 class="section-title">{t(titleKey as TranslationKey)}</h2>
+            <p class="section-body">{t(descKey as TranslationKey)}</p>
+          </div>
+          <div class="service-detail-list">
+            <p class="list-heading">{t('services.cleaned.label')}</p>
+            <ul class="item-list" role="list">
+              {items.map(item => (
+                <li class="item-list-entry">
+                  <span class="item-bullet" aria-hidden="true">—</span>
+                  {item.trim()}
+                </li>
+              ))}
+            </ul>
+          </div>
+        </div>
+      </section>
+    );
+  })}
+
+  <section class="section section--dark section--centered">
+    <div class="container--narrow">
+      <div class="gold-rule"></div>
+      <p class="section-label">{t('b2b.label')}</p>
+      <h2 class="section-title">{t('b2b.title')}</h2>
+      <p class="section-body b2b-body">{t('b2b.body')}</p>
+      <a href={`${base}/contact`} class="btn btn--gold">{t('b2b.cta')}</a>
+    </div>
+  </section>
+
+</BaseLayout>
+
+<style>
+.page-hero { padding-block: var(--space-20); }
+.page-hero-body { margin-inline: auto; }
+
+.service-detail-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-16);
+  align-items: start;
+}
+
+.list-heading {
+  font-size: var(--text-xs);
+  font-weight: 600;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  color: var(--color-gold);
+  margin-bottom: var(--space-4);
+}
+.item-list { display: flex; flex-direction: column; }
+.item-list-entry {
+  display: flex;
+  align-items: center;
+  gap: var(--space-3);
+  font-size: var(--text-base);
+  color: var(--color-text-dark);
+  padding-block: var(--space-3);
+  border-bottom: 1px solid rgba(0,0,0,0.07);
+}
+.item-bullet { color: var(--color-gold); font-weight: 700; }
+
+.b2b-body { margin-inline: auto; margin-bottom: var(--space-8); }
+
+@media (max-width: 900px) {
+  .service-detail-grid { grid-template-columns: 1fr; gap: var(--space-10); }
+}
+</style>
