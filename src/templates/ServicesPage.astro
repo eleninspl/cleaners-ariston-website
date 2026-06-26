@@ -79,21 +79,23 @@ const services = [
 .page-hero { padding-block: var(--space-20); }
 .page-hero-body { margin-inline: auto; }
 
+.service-section { padding-block: var(--space-16); }
+
 .service-grid {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-16);
+  gap: var(--space-12);
   align-items: center;
 }
 .service-grid--reversed .service-photo-placeholder {
   order: -1;
 }
 
-.service-desc { margin-bottom: var(--space-10); }
+.service-desc { margin-bottom: var(--space-6); }
 
 .service-photo-placeholder {
   width: 100%;
-  aspect-ratio: 3/4;
+  aspect-ratio: 4/3;
   background-color: rgba(201,169,110,0.06);
   border: 2px dashed rgba(201,169,110,0.3);
   border-radius: var(--radius-md);
@@ -115,16 +117,16 @@ const services = [
   letter-spacing: 0.15em;
   text-transform: uppercase;
   color: var(--color-gold);
-  margin-bottom: var(--space-4);
+  margin-bottom: var(--space-3);
 }
 .item-list { display: flex; flex-direction: column; }
 .item-list-entry {
   display: flex;
   align-items: center;
   gap: var(--space-3);
-  font-size: var(--text-base);
+  font-size: var(--text-sm);
   color: var(--color-text-dark);
-  padding-block: var(--space-3);
+  padding-block: var(--space-2);
   border-bottom: 1px solid rgba(0,0,0,0.07);
 }
 .item-bullet { color: var(--color-gold); font-weight: 700; }
