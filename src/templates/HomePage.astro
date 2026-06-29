@@ -25,7 +25,7 @@ const base = lang === 'en' ? '/en' : '';
       <p class="section-label">{t('hero.label')}</p>
       <h1 class="hero-title">
         {t('hero.title')}<br />
-        <em>{t('hero.title.em')}</em>{t('hero.title.end') && <Fragment>&nbsp;{t('hero.title.end')}</Fragment>}
+        <em>{t('hero.title.em')}</em>{t('hero.title.end') && <Fragment><br />{t('hero.title.end')}</Fragment>}
       </h1>
       <p class="hero-body">{t('hero.body')}</p>
       <div class="hero-actions">
