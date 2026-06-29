@@ -25,8 +25,7 @@ const base = lang === 'en' ? '/en' : '';
       <p class="section-label">{t('hero.label')}</p>
       <h1 class="hero-title">
         {t('hero.title')}<br />
-        <em>{t('hero.title.em')}</em>
-        {t('hero.title.end') && <Fragment> {t('hero.title.end')}</Fragment>}
+        <em>{t('hero.title.em')}</em>{t('hero.title.end') && <Fragment>&nbsp;{t('hero.title.end')}</Fragment>}
       </h1>
       <p class="hero-body">{t('hero.body')}</p>
       <div class="hero-actions">
@@ -250,7 +249,7 @@ const base = lang === 'en' ? '/en' : '';
   font-size: var(--text-xs);
   letter-spacing: 0.12em;
   text-transform: uppercase;
-  color: #7a7166;
+  color: var(--color-text-muted);
 }
 .trust-divider {
   width: 1px;
@@ -335,7 +334,7 @@ const base = lang === 'en' ? '/en' : '';
 }
 .reviews-count {
   font-size: var(--text-sm);
-  color: #7a7166;
+  color: var(--color-text-muted);
   letter-spacing: 0.06em;
 }
 
